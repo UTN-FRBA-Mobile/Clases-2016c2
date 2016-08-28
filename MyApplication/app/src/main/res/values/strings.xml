@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="hola_mundo">¡Hola Mundo!</string>
+    <string name="tap_n_times">Tocaste %d veces.</string>
+</resources>
