@@ -13,8 +13,30 @@ import android.widget.TextView;
  */
 public class MainFragment extends Fragment {
 
+    public static final String TAP_COUNT = "tapCount";
+
+    public interface Listener {
+
+        void navigateToDetails(int tapCount);
+        void showOtroFragment();
+    }
+
     TextView textView;
+    View navigateButton;
     int tapCount = 0;
+    Listener listener;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Bundle arguments = getArguments();
+        if (arguments != null) {
+            tapCount = arguments.getInt(TAP_COUNT, tapCount);
+        }
+        if (savedInstanceState != null) {
+            tapCount = savedInstanceState.getInt(TAP_COUNT, tapCount);
+        }
+    }
 
     @Nullable
     @Override
@@ -23,10 +45,21 @@ public class MainFragment extends Fragment {
     }
 
     @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        listener = (Listener) getActivity();
+    }
+
+    @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         textView = (TextView) view.findViewById(R.id.elTextView);
-        textView.setText(R.string.hola_mundo);
+        if (tapCount != 0) {
+            textView.setText(getString(R.string.tap_n_times, tapCount));
+        }
+        else {
+            textView.setText(R.string.hola_mundo);
+        }
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -34,5 +67,29 @@ public class MainFragment extends Fragment {
                 textView.setText(getString(R.string.tap_n_times, tapCount));
             }
         });
+        navigateButton = view.findViewById(R.id.navigateButton);
+        navigateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.navigateToDetails(tapCount);
+            }
+        });
+        view.findViewById(R.id.otroFragmentButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.showOtroFragment();
+            }
+        });
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(TAP_COUNT, tapCount);
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
     }
 }
