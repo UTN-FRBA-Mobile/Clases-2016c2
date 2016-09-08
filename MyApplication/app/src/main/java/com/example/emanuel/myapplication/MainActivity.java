@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 
 public class MainActivity extends AppCompatActivity implements MainFragment.Listener {
 
@@ -23,10 +24,12 @@ public class MainActivity extends AppCompatActivity implements MainFragment.List
 
     @Override
     public void navigateToDetails(int tapCount) {
-        MainFragment fragment = new MainFragment();
+        RecyclerFragment fragment = new RecyclerFragment();
+        /*
         Bundle arguments = new Bundle();
         arguments.putInt(MainFragment.TAP_COUNT, tapCount);
         fragment.setArguments(arguments);
+        */
         if (splitScreen) {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.segundoFragment, fragment)

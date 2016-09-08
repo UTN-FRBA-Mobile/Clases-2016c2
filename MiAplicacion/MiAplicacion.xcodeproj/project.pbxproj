@@ -12,6 +12,7 @@
 		889C8A611D6BCE72005C0164 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 889C8A5F1D6BCE72005C0164 /* Main.storyboard */; };
 		889C8A631D6BCE73005C0164 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 889C8A621D6BCE73005C0164 /* Assets.xcassets */; };
 		889C8A661D6BCE73005C0164 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 889C8A641D6BCE73005C0164 /* LaunchScreen.storyboard */; };
+		88AA2F4A1D7E36E7001F248D /* MiTablaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88AA2F491D7E36E7001F248D /* MiTablaViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +24,7 @@
 		889C8A651D6BCE73005C0164 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		889C8A671D6BCE73005C0164 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		889C8A6E1D6BD3E6005C0164 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
+		88AA2F491D7E36E7001F248D /* MiTablaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MiTablaViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +59,7 @@
 			children = (
 				889C8A5B1D6BCE72005C0164 /* AppDelegate.swift */,
 				889C8A5D1D6BCE72005C0164 /* MiViewController.swift */,
+				88AA2F491D7E36E7001F248D /* MiTablaViewController.swift */,
 				889C8A5F1D6BCE72005C0164 /* Main.storyboard */,
 				889C8A621D6BCE73005C0164 /* Assets.xcassets */,
 				889C8A641D6BCE73005C0164 /* LaunchScreen.storyboard */,
@@ -139,6 +142,7 @@
 			files = (
 				889C8A5E1D6BCE72005C0164 /* MiViewController.swift in Sources */,
 				889C8A5C1D6BCE72005C0164 /* AppDelegate.swift in Sources */,
+				88AA2F4A1D7E36E7001F248D /* MiTablaViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -301,6 +305,7 @@
 				889C8A6C1D6BCE73005C0164 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
