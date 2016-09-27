@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 
+import com.example.emanuel.myapplication.slack.SlackActivity;
+
 public class MainActivity extends AppCompatActivity implements MainFragment.Listener {
 
     boolean splitScreen;
@@ -46,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.List
 
     @Override
     public void showOtroFragment() {
-        Intent intent = new Intent(this, OtroActivity.class);
+        Intent intent = new Intent(this, SlackActivity.class);
         startActivity(intent);
     }
 }

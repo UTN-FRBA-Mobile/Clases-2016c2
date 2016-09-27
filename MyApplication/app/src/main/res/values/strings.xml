@@ -3,4 +3,6 @@
     <string name="hola_mundo">¡Hola Mundo!</string>
     <string name="tap_n_times">Tocaste %d veces.</string>
     <string name="go">Ir al detalle</string>
+    <string name="send">Enviar</string>
+    <string name="required_channel">Antes de enviar un mensaje debe recibir uno para saber a qué channel responder.</string>
 </resources>
