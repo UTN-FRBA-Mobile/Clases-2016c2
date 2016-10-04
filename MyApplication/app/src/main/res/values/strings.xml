@@ -5,4 +5,9 @@
     <string name="go">Ir al detalle</string>
     <string name="send">Enviar</string>
     <string name="required_channel">Antes de enviar un mensaje debe recibir uno para saber a qué channel responder.</string>
+    <string name="termsAndConditions">Términos y Condiciones</string>
+    <string name="acceptMenu">Aceptar</string>
+    <string name="dontAcceptMenu">No aceptar</string>
+    <string name="accept">Aceptaste los términos y condiciones. Grosso.</string>
+    <string name="dontAccept">Aceptá los terminos y condiciones, dale.</string>
 </resources>

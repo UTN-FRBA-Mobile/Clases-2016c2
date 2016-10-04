@@ -24,6 +24,8 @@
         <activity android:name=".slack.SlackActivity"
             android:theme="@style/AppTheme" />
         <service android:name=".slack.RTMService" />
+        <activity android:name=".TermsAndConditionsActivity"
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>

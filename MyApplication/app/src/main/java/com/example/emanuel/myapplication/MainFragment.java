@@ -19,6 +19,7 @@ public class MainFragment extends Fragment {
 
         void navigateToDetails(int tapCount);
         void showOtroFragment();
+        void showTermsAndConditions();
     }
 
     TextView textView;
@@ -78,6 +79,12 @@ public class MainFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 listener.showOtroFragment();
+            }
+        });
+        view.findViewById(R.id.termsAndConditionsButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.showTermsAndConditions();
             }
         });
     }

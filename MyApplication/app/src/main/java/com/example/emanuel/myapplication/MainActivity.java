@@ -51,4 +51,10 @@ public class MainActivity extends AppCompatActivity implements MainFragment.List
         Intent intent = new Intent(this, SlackActivity.class);
         startActivity(intent);
     }
+
+    @Override
+    public void showTermsAndConditions() {
+        Intent intent = new Intent(this, TermsAndConditionsActivity.class);
+        startActivity(intent);
+    }
 }
