@@ -7,10 +7,10 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.example.emanuel.myapplication.Request;
 import com.example.emanuel.myapplication.slack.response.Event;
 import com.example.emanuel.myapplication.slack.response.ResponseParser;
 import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
 import com.squareup.okhttp.internal.ws.WebSocket;
 import com.squareup.okhttp.internal.ws.WebSocketListener;
 
@@ -85,7 +85,7 @@ public class RTMService extends Service {
 
         final OkHttpClient client = new OkHttpClient();
 
-        Request request = new Request.Builder()
+        com.squareup.okhttp.Request request = new com.squareup.okhttp.Request.Builder()
                 .url(websocketUrl)
                 .build();
         webSocket = WebSocket.newWebSocket(client, request);
@@ -145,9 +145,9 @@ public class RTMService extends Service {
             return;
         }
         Log.d(TAG, "Adquiriendo URL del WebSocket.");
-        com.example.emanuel.myapplication.Request request = new com.example.emanuel.myapplication.Request(url) {
+        Request request = Request.makeRequest(url, new Request.Listener() {
             @Override
-            protected void onReceivedBody(int responseCode, String body) {
+            public void onReceivedBody(int responseCode, String body) {
                 obtainingUrl = false;
                 if (responseCode == 200) {
                     try {
@@ -165,12 +165,12 @@ public class RTMService extends Service {
             }
 
             @Override
-            protected void onError(Exception e) {
+            public void onError(Exception e) {
                 obtainingUrl = false;
                 Log.d(TAG, "Falló la llamada inicial.");
                 retryConnectionDelayed();
             }
-        };
+        });
         executor.execute(request);
     }
 

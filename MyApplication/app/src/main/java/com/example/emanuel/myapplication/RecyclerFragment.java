@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,6 +31,7 @@ import java.util.concurrent.Executors;
 public class RecyclerFragment extends Fragment {
 
     RecyclerView recyclerView;
+    ProgressBar progressBar;
     MiAdapter adapter = new MiAdapter();
     Executor executor = Executors.newSingleThreadExecutor();
 
@@ -43,6 +45,7 @@ public class RecyclerFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recyclerView = (RecyclerView)view.findViewById(R.id.recyclerView);
+        progressBar = (ProgressBar)view.findViewById(R.id.progressBar);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
     }
@@ -54,44 +57,46 @@ public class RecyclerFragment extends Fragment {
     }
 
     private void fetchWeatherAsync() {
-        // mostrar el loading
-        executor.execute(new Runnable() {
+        progressBar.setVisibility(View.VISIBLE);
+        recyclerView.setVisibility(View.GONE);
+        URL url = null;
+        try {
+            url = new URL("http://api.openweathermap.org/data/2.5/forecast/daily?lat=35&lon=139&cnt=10&appid=8421cf3aebd32d95d30c13c9187cc535");
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        new Thread(Request.makeRequest(url, new Request.Listener() {
             @Override
-            public void run() {
+            public void onReceivedBody(int responseCode, String body) {
                 try {
-                    final List<Forecast> forecasts = fetchWeatherSync();
+                    JSONObject jsonObject = new JSONObject(body);
+                    final List<Forecast> forecasts = parseList(jsonObject.getJSONArray("list"));
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             // ocultar el loading
                             updateForecasts(forecasts);
+                            progressBar.setVisibility(View.GONE);
+                            recyclerView.setVisibility(View.VISIBLE);
                         }
                     });
                 } catch (Exception e) {
-                    e.printStackTrace();
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            onWeatherRequestFailed();
-                        }
-                    });
+                    onError(e);
                 }
             }
-        });
-    }
 
-    private List<Forecast> fetchWeatherSync() throws IOException, JSONException {
-        URL url = new URL("http://api.openweathermap.org/data/2.5/forecast/daily?lat=35&lon=139&cnt=10&appid=8421cf3aebd32d95d30c13c9187cc535");
-        HttpURLConnection connection = (HttpURLConnection)url.openConnection();
-        InputStream stream = connection.getInputStream();
-        ByteArrayOutputStream responseBody = new ByteArrayOutputStream();
-        byte buffer[] = new byte[1024];
-        int bytesRead = 0;
-        while ((bytesRead = stream.read(buffer)) > 0) {
-            responseBody.write(buffer, 0, bytesRead);
-        }
-        JSONObject jsonObject = new JSONObject(responseBody.toString());
-        return parseList(jsonObject.getJSONArray("list"));
+            @Override
+            public void onError(Exception e) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        onWeatherRequestFailed();
+                        progressBar.setVisibility(View.GONE);
+                        recyclerView.setVisibility(View.VISIBLE);
+                    }
+                });
+            }
+        })).start();
     }
 
     private List<Forecast> parseList(JSONArray list) throws JSONException {

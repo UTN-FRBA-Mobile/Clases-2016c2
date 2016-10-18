@@ -1,6 +1,5 @@
 package com.example.emanuel.myapplication;
 
-import android.app.Application;
 import android.test.ApplicationTestCase;
 
 /**

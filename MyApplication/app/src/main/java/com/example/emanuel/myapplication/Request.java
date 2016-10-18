@@ -4,16 +4,44 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 
 /**
  * Created by emanuel on 25/9/16.
  */
-public abstract class Request implements Runnable {
+public class Request implements Runnable {
 
-    URL url;
+    public interface Listener {
 
-    public Request(URL url) {
+        void onReceivedBody(int responseCode, String body);
+        void onError(Exception e);
+    }
+
+    public interface RequestFactory {
+
+        Request makeRequest(URL url, Listener listener);
+    }
+    private static RequestFactory factory = new RequestFactory() {
+        @Override
+        public Request makeRequest(URL url, Listener listener) {
+            return new Request(url, listener);
+        }
+    };
+
+    private URL url;
+    private Listener listener;
+
+    public static Request makeRequest(URL url, Listener listener) {
+        return factory.makeRequest(url, listener);
+    }
+
+    public static void setFactory(RequestFactory newFactory) {
+        factory = newFactory;
+    }
+
+    public Request(URL url, Listener listener) {
         this.url = url;
+        this.listener = listener;
     }
 
     @Override
@@ -28,14 +56,10 @@ public abstract class Request implements Runnable {
             while ((bytesRead = stream.read(buffer)) > 0) {
                 responseBody.write(buffer, 0, bytesRead);
             }
-            onReceivedBody(responseCode, responseBody.toString());
+            listener.onReceivedBody(responseCode, responseBody.toString());
         }
         catch (Exception e) {
-            onError(e);
+            listener.onError(e);
         }
     }
-
-    protected abstract void onReceivedBody(int responseCode, String body);
-
-    protected abstract void onError(Exception e);
 }
