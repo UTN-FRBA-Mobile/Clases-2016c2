@@ -57,4 +57,10 @@ public class MainActivity extends AppCompatActivity implements MainFragment.List
         Intent intent = new Intent(this, TermsAndConditionsActivity.class);
         startActivity(intent);
     }
+
+    @Override
+    public void showLocation() {
+        Intent intent = new Intent(this, MyLocationActivity.class);
+        startActivity(intent);
+    }
 }

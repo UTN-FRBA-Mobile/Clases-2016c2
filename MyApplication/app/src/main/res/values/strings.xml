@@ -10,4 +10,9 @@
     <string name="dontAcceptMenu">No aceptar</string>
     <string name="accept">Aceptaste los términos y condiciones. Grosso.</string>
     <string name="dontAccept">Aceptá los terminos y condiciones, dale.</string>
+    <string name="location">Ubicación actual</string>
+    <string name="requestLocation">Obtener Ubicación</string>
+    <string name="locationRequired">Sin permiso de Location no anda.</string>
+    <string name="locationServicesDisabled">Location Services está desactivado.</string>
+    <string name="noLocation">No se pudo obtener la ubicación actual.</string>
 </resources>

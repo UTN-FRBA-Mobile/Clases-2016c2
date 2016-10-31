@@ -20,6 +20,7 @@ public class MainFragment extends Fragment {
         void navigateToDetails(int tapCount);
         void showOtroFragment();
         void showTermsAndConditions();
+        void showLocation();
     }
 
     TextView textView;
@@ -85,6 +86,12 @@ public class MainFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 listener.showTermsAndConditions();
+            }
+        });
+        view.findViewById(R.id.myLocationButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.showLocation();
             }
         });
     }

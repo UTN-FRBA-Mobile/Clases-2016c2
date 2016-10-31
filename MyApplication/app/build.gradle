@@ -27,5 +27,6 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:24.2.1'
     compile 'com.squareup.okhttp:okhttp:2.2.0'
     compile 'com.google.code.gson:gson:2.4'
+    compile 'com.google.android.gms:play-services-location:9.6.0'
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
 }
